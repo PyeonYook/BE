@@ -1,7 +1,9 @@
-package com.example.py_backend;
+package com.example.py_backend.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.py_backend.service.CrawlerService;
 
 @RestController
 public class NoticeController {
@@ -14,7 +16,15 @@ public class NoticeController {
 
     @GetMapping("/crawl")
     public String startCrawling() {
-        crawlerService.crawlNotices();
-        return "크롤링 완료! 콘솔을 확인하세요.";
+        while(true){
+            crawlerService.crawlNotices();
+            try {
+	        Thread.sleep(3600000); //1시간 대기
+            } catch (InterruptedException e) {
+	            e.printStackTrace();
+            }
+        }
+        
+
     }
 }
