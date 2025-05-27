@@ -11,13 +11,14 @@ import com.example.py_backend.entity.Notice;
 import java.io.IOException;
 import java.time.*;
 import java.time.format.*;
+import java.util.*;
 
 @Service
-public class CrawlerService {
+public class NoticeService {
 
     private final NoticeRepository noticeRepository;
 
-    public CrawlerService(NoticeRepository noticeRepository){
+    public NoticeService(NoticeRepository noticeRepository){
         this.noticeRepository = noticeRepository;
     }
 
@@ -76,7 +77,14 @@ public class CrawlerService {
             }
         }
     }
-        
+    
+    public List<Notice> searchNoticesByKeywords(List<String> keywords) {
+        Set<Notice> result = new HashSet<>();
+        for(String k : keywords) {
+            result.addAll(noticeRepository.findByTitleContaining(k));
+        }
+        return new ArrayList<>(result);
+    }
 
         
 }
