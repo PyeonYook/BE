@@ -13,6 +13,8 @@ public class Notice {
     @Column(name = "notice_id")
     private Integer noticeId;
 
+    private Integer noticeType;
+
     @Column(nullable = false)
     private String title;
 
@@ -34,6 +36,13 @@ public class Notice {
     }
     public void setNoticeId(Integer noticeId) {
         this.noticeId = noticeId;
+    }
+
+    public Integer getNoticeType() {
+        return noticeType;
+    }
+    public void setNoticeType(Integer noticeType) {
+        this.noticeType = noticeType;
     }
 
     public String getTitle() {

@@ -11,6 +11,8 @@ public class Keyword {
 
     private Integer userId;
 
+    private Integer keywordType;
+
     private String keyword;
 
     //Get,set
@@ -28,6 +30,13 @@ public class Keyword {
         this.userId = userId;
     }
     
+    public Integer getKeywordType(){
+        return keywordType;
+    }
+    public void setKeywordType(Integer keywordType){
+        this.keywordType = keywordType;
+    }
+
     public String getKeyword(){
         return keyword;
     }

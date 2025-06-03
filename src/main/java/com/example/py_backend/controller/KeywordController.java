@@ -16,20 +16,20 @@ public class KeywordController {
     @Autowired KeywordService keywordService;
     @Autowired NoticeService noticeService;
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addKeyword(@RequestParam Integer userId, @RequestParam String keyword) {
-        Integer ok = keywordService.addKeyword(userId, keyword);
+    @PostMapping("/add") //키워드 추가
+    public ResponseEntity<?> addKeyword(@RequestParam Integer userId, @RequestParam Integer keywordType, @RequestParam String keyword) {
+        Integer ok = keywordService.addKeyword(userId, keywordType, keyword);
         if(ok == 1) return ResponseEntity.badRequest().body("3개 이상 추가할 수 없습니다."); //3개이상
         else if( ok == 2 ) return ResponseEntity.badRequest().body("중복된 키워드가 있습니다."); //중복
         return ResponseEntity.ok("키워드 추가 성공");
     }
 
-    @GetMapping("/list")
+    @GetMapping("/list") //키워드 리스트
     public ResponseEntity<List<String>> list(@RequestParam Integer userId) {
         return ResponseEntity.ok(keywordService.getUserKeywords(userId));
     }
 
-    @GetMapping("/notices")
+    @GetMapping("/notices") //키워드 포함된 공지 리스트
     public ResponseEntity<List<Notice>> getMyKeywordNotices(@RequestParam Integer userId) {
         List<String> keywords = keywordService.getUserKeywords(userId);
         List<Notice> notices = noticeService.searchNoticesByKeywords(keywords);
