@@ -86,6 +86,10 @@ public class NoticeService {
         }
     }
     
+    public List<Notice> getAllNotices() {
+        return noticeRepository.findAll();
+    }
+    
     public List<Notice> searchNoticesByKeywords(List<String> keywords) {
         Set<Notice> result = new HashSet<>();
         for(String k : keywords) {

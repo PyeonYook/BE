@@ -3,46 +3,26 @@ package com.example.py_backend.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "User")
+@Table(name= "User")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer stdno;
+    private Long id;
 
-    private String name;
+    @Column(unique = true)
+    private String uid;      // Firebase UID
 
-    @Column(unique = true, nullable = false)
-    private String email;
+    @Column(unique = true)
+    private String email;    // 이메일(선택 - 구글 Oauth시 제공됨)
 
-    @Column(nullable = false)
-    private String password;
+    private String name;     // 닉네임/이름(선택)
 
-    // Get,set
-    public Integer getStdno(){
-        return stdno;
-    }
-    public void setStdno(Integer stdno){
-        this.stdno = stdno;
-    }
-
-    public String getName(){
-        return name;
-    }
-    public void setName(String name){
-        this.name = name;
-    }
-
-    public String getEmail(){
-        return email;
-    }
-    public void setEmail(String email){
-        this.email = email;
-    }
-
-    public String getPassword(){
-        return password;
-    }
-    public void setPassword(String password){
-        this.password = password;
-    }
+    // Getter/Setter
+    public Long getId() { return id; }
+    public String getUid() { return uid; }
+    public void setUid(String uid) { this.uid = uid; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public String getName() { return name;}
+    public void setName(String name) {this.name = name;}
 }
