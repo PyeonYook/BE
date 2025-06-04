@@ -4,9 +4,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.example.py_backend.repository.NoticeRepository;
+
+import jakarta.annotation.PostConstruct;
+
 import com.example.py_backend.entity.Notice;
 import java.io.IOException;
 import java.time.*;
@@ -20,6 +24,16 @@ public class NoticeService {
 
     public NoticeService(NoticeRepository noticeRepository){
         this.noticeRepository = noticeRepository;
+    }
+
+    @PostConstruct
+    public void onStartup(){
+        crawlNotices();
+    }
+
+    @Scheduled(fixedRate = 60*60*1000)
+    public void scheduledCrawl(){
+        crawlNotices();
     }
 
     public void crawlNotices() {
@@ -43,24 +57,22 @@ public class NoticeService {
                     if(articles.isEmpty()) break;
 
                     for (Element article : articles) {
-                        String title = article.selectFirst("td.step2 a.itembx span.tit").text();
-                        String link = article.selectFirst("td.step2 a.itembx").absUrl("href");
-                        String author = article.selectFirst("td.step3").text();
-                        String date = article.selectFirst("td.step4").text();
+                        Element tElement = article.selectFirst("td.step2 a.itembx span.tit");
+                        String title = tElement!=null?tElement.text() : null;
+                        Element lElement = article.selectFirst("td.step2 a.itembx");
+                        String link = lElement!=null? lElement.absUrl("href") : null;
+                        Element aElement = article.selectFirst("td.step3");
+                        String author = aElement!=null?aElement.text() : null;
+                        Element dElement = article.selectFirst("td.step4");
+                        String date = dElement!=null?dElement.text() : null;
 
-                        if (title == null || link == null || date == null) {
+                        if (title == null || link == null || author == null ||date == null) {
                             continue; // 누락된 게 있으면 skip
                         }
 
                         if (noticeRepository.existsByUrl(link)){
                             flag = true; break;
                         }
-
-                        System.out.println("제목: " + title);
-                        System.out.println("링크: " + link);
-                        System.out.println("작성자: "+ author);
-                        System.out.println("날짜: " + date);
-                        System.out.println("---------------------------------");
 
                         Notice notice = new Notice();
 
@@ -69,7 +81,7 @@ public class NoticeService {
                         notice.setUrl(link);
                         notice.setAuthor(author);
                         
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy. MM. dd");
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
                         notice.setPublishedAt(LocalDate.parse(date, formatter).atStartOfDay());
 
                         notice.setCrawledAt(LocalDateTime.now());
@@ -89,7 +101,7 @@ public class NoticeService {
     public List<Notice> getAllNotices() {
         return noticeRepository.findAll();
     }
-    
+
     public List<Notice> searchNoticesByKeywords(List<String> keywords) {
         Set<Notice> result = new HashSet<>();
         for(String k : keywords) {

@@ -12,7 +12,7 @@ import com.example.py_backend.entity.Notice;
 import com.example.py_backend.service.NoticeService;
 
 @RestController
-@RequestMapping("/api/Notice")
+@RequestMapping("/api/notice")
 public class NoticeController {
     @Autowired NoticeService noticeService;
 
@@ -24,14 +24,8 @@ public class NoticeController {
 
     @GetMapping("/crawl")
     public String startCrawling() {
-        while(true){
-            crawlerService.crawlNotices();
-            try {
-	            Thread.sleep(3600000); //1시간 대기
-            } catch (InterruptedException e) {
-	            e.printStackTrace();
-            }
-        }
+        crawlerService.crawlNotices();
+        return "크롤링 1회 실행 완료!";
     }
 
     @GetMapping("/all")

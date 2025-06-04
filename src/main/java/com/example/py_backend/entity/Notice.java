@@ -10,9 +10,10 @@ public class Notice {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)   // notice_id 자동 증가
-    @Column(name = "notice_id")
+    @Column(name = "notice_id", nullable = false)
     private Integer noticeId;
 
+    @Column(nullable = false)
     private Integer noticeType;
 
     @Column(nullable = false)
