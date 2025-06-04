@@ -12,19 +12,21 @@ import com.example.py_backend.repository.KeywordRepository;
 public class KeywordService {
     @Autowired KeywordRepository keywordRepository;
     
-     public Integer addKeyword(Integer userId, String keyword) {
+     public Integer addKeyword(Integer userId, Integer keywordType, String keyword) {
         List<Keyword> myKeywords = keywordRepository.findByUserId(userId);
 
         if(myKeywords.size() >= 3) { //3개이상거부
             return 1;
         }
 
-        if (myKeywords.stream().anyMatch(k -> k.getKeyword().equals(keyword))) { //중복방지
+        if (myKeywords.stream().anyMatch(k -> k.getKeywordType().equals(keywordType)) && 
+            myKeywords.stream().anyMatch(k -> k.getKeyword().equals(keyword))) { //중복방지
             return 2;
         }
 
         Keyword k = new Keyword();
         k.setUserId(userId);
+        k.setKeywordType(keywordType);
         k.setKeyword(keyword);
         keywordRepository.save(k);
         return 0;

@@ -10,8 +10,11 @@ public class Notice {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)   // notice_id 자동 증가
-    @Column(name = "notice_id")
+    @Column(name = "notice_id", nullable = false)
     private Integer noticeId;
+
+    @Column(nullable = false)
+    private Integer noticeType;
 
     @Column(nullable = false)
     private String title;
@@ -34,6 +37,13 @@ public class Notice {
     }
     public void setNoticeId(Integer noticeId) {
         this.noticeId = noticeId;
+    }
+
+    public Integer getNoticeType() {
+        return noticeType;
+    }
+    public void setNoticeType(Integer noticeType) {
+        this.noticeType = noticeType;
     }
 
     public String getTitle() {
