@@ -42,13 +42,14 @@ public class NoticeService {
             int page = 1;
             boolean flag = false;
             String url = "";
-
+            
             if(i==0) url = "https://www.syu.ac.kr/academic/academic-notice/";
             else url = "https://www.syu.ac.kr/academic/scholarship-information/scholarship-notice/";
-            
+                
             while(!flag){
                 
                 if(page!=1) url += "/page/"+page+"/";
+                
                 try {
                     Document doc = Jsoup.connect(url).get();
 
@@ -99,7 +100,7 @@ public class NoticeService {
     }
     
     public List<Notice> getAllNotices() {
-        return noticeRepository.findAll();
+        return noticeRepository.findAllByOrderByPublishedAtDesc();
     }
 
     public List<Notice> searchNoticesByKeywords(List<String> keywords) {

@@ -17,7 +17,7 @@ public class UserService {
         return userRepository.findByUid(uid);
     }
 
-    // UID로 없으면 신규 회원가입, 있으면 기존 회원 반환
+    // UID로 없으면 회원가입, 있으면 로그인
     public User registerOrLogin(String uid, String email, String name) {
         User user = userRepository.findByUid(uid);
         if (user == null) {

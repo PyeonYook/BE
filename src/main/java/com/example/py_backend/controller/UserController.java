@@ -18,17 +18,15 @@ public class UserController {
 
     @PostMapping("/login")
     public AuthResponse firebaseLogin(@RequestBody IdTokenRequest request) throws Exception {
-        // 1. idToken 검증 (Firebase Admin SDK 초기화 필요)
+
         FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(request.getIdToken());
 
         String uid = decodedToken.getUid();
         String email = decodedToken.getEmail();
-        String name = (String) decodedToken.getClaims().get("name"); // 구글로그인 등
+        String name = (String) decodedToken.getClaims().get("name");
 
-        // 2. 회원가입(최초)/로그인(기존) 처리
         User user = userService.registerOrLogin(uid, email, name);
 
-        // 3. 응답
         return new AuthResponse(user.getId(), user.getUid(), user.getEmail(), user.getName());
     }
 

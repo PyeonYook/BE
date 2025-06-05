@@ -12,10 +12,10 @@ import com.example.py_backend.repository.KeywordRepository;
 public class KeywordService {
     @Autowired KeywordRepository keywordRepository;
     
-     public Integer addKeyword(Integer userId, Integer keywordType, String keyword) {
+    public Integer addKeyword(Integer userId, Integer keywordType, String keyword) {
         List<Keyword> myKeywords = keywordRepository.findByUserId(userId);
 
-        if(myKeywords.size() >= 3) { //3개이상거부
+        if(myKeywords.size() >= 3) { //3개이상 추가 불가
             return 1;
         }
 

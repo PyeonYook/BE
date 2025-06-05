@@ -10,19 +10,23 @@ public class User {
     private Long id;
 
     @Column(unique = true)
-    private String uid;      // Firebase UID
+    private String uid; //파이어베이스 uid
 
     @Column(unique = true)
-    private String email;    // 이메일(선택 - 구글 Oauth시 제공됨)
+    private String email;    
 
-    private String name;     // 닉네임/이름(선택)
+    private String name;     
 
-    // Getter/Setter
+    //get,set
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
     public String getUid() { return uid; }
     public void setUid(String uid) { this.uid = uid; }
+    
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+    
     public String getName() { return name;}
     public void setName(String name) {this.name = name;}
 }

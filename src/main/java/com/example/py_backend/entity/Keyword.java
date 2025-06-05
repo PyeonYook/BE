@@ -15,34 +15,18 @@ public class Keyword {
 
     private String keyword;
 
-    //Get,set
-    public Integer getKeywordId(){
-        return keywordId;
-    }
-    public void setKeywordId(Integer keywordId){
-        this.keywordId = keywordId;
-    }
+    //get,set
+    public Integer getKeywordId() { return keywordId; }
+    public void setKeywordId(Integer keywordId) { this.keywordId = keywordId; }
 
-    public Integer getUserId(){
-        return userId;
-    }
-    public void setUserId(Integer userId){
-        this.userId = userId;
-    }
+    public Integer getUserId() { return userId; }
+    public void setUserId(Integer userId) { this.userId = userId; }
     
-    public Integer getKeywordType(){
-        return keywordType;
-    }
-    public void setKeywordType(Integer keywordType){
-        this.keywordType = keywordType;
-    }
+    public Integer getKeywordType() { return keywordType; }
+    public void setKeywordType(Integer keywordType) { this.keywordType = keywordType; }
 
-    public String getKeyword(){
-        return keyword;
-    }
-    public void setKeyword(String keyword){
-        this.keyword = keyword;
-    }
+    public String getKeyword() { return keyword; }
+    public void setKeyword(String keyword) { this.keyword = keyword; }
 
     
 }

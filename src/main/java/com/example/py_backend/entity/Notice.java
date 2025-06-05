@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 public class Notice {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)   // notice_id 자동 증가
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "notice_id", nullable = false)
     private Integer noticeId;
 
@@ -32,52 +32,24 @@ public class Notice {
     private LocalDateTime crawledAt;
 
     //get,set
-    public Integer getNoticeId() {
-        return noticeId;
-    }
-    public void setNoticeId(Integer noticeId) {
-        this.noticeId = noticeId;
-    }
+    public Integer getNoticeId() { return noticeId; }
+    public void setNoticeId(Integer noticeId) { this.noticeId = noticeId; }
 
-    public Integer getNoticeType() {
-        return noticeType;
-    }
-    public void setNoticeType(Integer noticeType) {
-        this.noticeType = noticeType;
-    }
+    public Integer getNoticeType() { return noticeType; }
+    public void setNoticeType(Integer noticeType) { this.noticeType = noticeType; }
 
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-    public String getUrl() {
-        return url;
-    }
-    public void setUrl(String url) {
-        this.url = url;
-    }
+    public String getUrl() { return url; }
+    public void setUrl(String url) { this.url = url; }
 
-    public String getAuthor() {
-        return author;
-    }
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+    public String getAuthor() { return author; }
+    public void setAuthor(String author) { this.author = author; }
 
-    public LocalDateTime getPublishedAt() {
-        return publishedAt;
-    }
-    public void setPublishedAt(LocalDateTime publishedAt) {
-        this.publishedAt = publishedAt;
-    }
+    public LocalDateTime getPublishedAt() { return publishedAt; }
+    public void setPublishedAt(LocalDateTime publishedAt) { this.publishedAt = publishedAt; }
 
-    public LocalDateTime getCrawledAt() {
-        return crawledAt;
-    }
-    public void setCrawledAt(LocalDateTime crawledAt) {
-        this.crawledAt = crawledAt;
-    }
+    public LocalDateTime getCrawledAt() { return crawledAt; }
+    public void setCrawledAt(LocalDateTime crawledAt) { this.crawledAt = crawledAt; }
 }
